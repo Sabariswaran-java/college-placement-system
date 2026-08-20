@@ -1,0 +1,177 @@
+:root {
+    --brand-green: #1b4332;
+    --accent-emerald: #2d6a4f;
+    --mint-light: #d8f3dc;
+    --soft-border: rgba(45, 106, 79, 0.25);
+    --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+
+body {
+    background: linear-gradient(rgba(15, 40, 28, 0.78), rgba(8, 28, 21, 0.88)), 
+                url('https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+    background-size: cover;
+    color: #0f172a;
+    min-height: 100vh;
+}
+
+.portal-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+
+.main-header { margin-bottom: 80px; }
+.main-header h1 { font-size: 38px; color: #ffffff; font-weight: 800; letter-spacing: -0.5px; text-shadow: 0 3px 10px rgba(0,0,0,0.6); }
+.main-header h2 { font-size: 20px; color: var(--mint-light); font-weight: 600; margin-top: 8px; }
+.main-header p { font-size: 14px; color: #b7e4c7; margin-top: 6px; }
+
+.role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 90px; }
+
+.role-card {
+    background: rgba(255, 255, 255, 0.95); border: 2px solid var(--soft-border);
+    padding: 32px 24px; border-radius: 20px; backdrop-filter: blur(10px);
+    cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.role-card:hover { transform: translateY(-8px); border-color: var(--brand-green); box-shadow: 0 16px 36px rgba(27, 67, 50, 0.4); }
+
+.svg-icon { width: 48px; height: 48px; fill: var(--brand-green); margin-bottom: 18px; }
+.role-card h3 { font-size: 19px; color: #081c15; margin-bottom: 10px; font-weight: 700; }
+.role-card p { font-size: 13px; color: #2d6a4f; line-height: 1.5; margin-bottom: 22px; }
+
+/* BORDERLESS SEAMLESS TICKER */
+.marquee-strip { overflow: hidden; white-space: nowrap; margin-top: 20px; }
+.marquee-track { overflow: hidden; }
+.marquee-content { display: inline-block; animation: marquee 22s linear infinite; }
+.company-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px 22px; border-radius: 25px; margin-right: 20px;
+    font-weight: 700; font-size: 13px; color: #0f172a; box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+.brand-svg { width: 18px; height: 18px; }
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* HIGH-END CORPORATE AUDIT BADGES */
+.audit-container { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+.audit-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: -0.1px;
+}
+
+.audit-selected { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.audit-rejected { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.audit-pending { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+
+.status-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.dot-selected { background: #16a34a; }
+.dot-rejected { background: #dc2626; }
+.dot-pending { background: #2563eb; }
+
+.btn-portal { background: var(--brand-green); color: #ffffff !important; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; width: 100%; text-align: center; }
+.btn-portal:hover { background: var(--accent-emerald); }
+
+.btn-edit { background: #dcfce7; color: #15803d; border: 1px solid #22c55e; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 700; margin-right: 6px; }
+.btn-del { background: #fee2e2; color: #dc2626; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 700; }
+
+.input-field { width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; background: #ffffff !important; color: #0f172a !important; font-weight: 600; }
+.input-field:disabled { background: #f1f5f9 !important; color: #64748b !important; cursor: not-allowed; }
+
+#portalWorkspace { background: #f8fafc; min-height: 100vh; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 40px; background: var(--brand-green); color: #ffffff; }
+.btn-back { background: rgba(255, 255, 255, 0.18); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.3); padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.btn-back:hover { background: var(--danger); border-color: var(--danger); }
+
+.main-wrapper { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+.dashboard-title { font-size: 24px; font-weight: 800; color: var(--brand-green); margin-bottom: 20px; letter-spacing: -0.3px; }
+
+.form-card, .table-card { background: #ffffff !important; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
+.form-card h3, .table-card h3 { font-size: 16px; font-weight: 700; color: var(--brand-green) !important; margin-bottom: 16px; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+
+/* DATA TABLES CLEAN DESIGN */
+.data-table { width: 100%; border-collapse: collapse; text-align: left; }
+.data-table th { background: var(--brand-green) !important; color: #ffffff !important; font-size: 12px; font-weight: 700; padding: 14px 18px; text-transform: uppercase; letter-spacing: 0.5px; }
+.data-table td { padding: 16px 18px; border-bottom: 1px solid #f1f5f9; color: #334155; font-size: 14px; font-weight: 500; }
+
+.badge-success { background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 12px; border: 1px solid #bbf7d0; }
+.badge-warning { background: #fefce8; color: #854d0e; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 12px; border: 1px solid #fef08a; }
+
+.notif-wrapper { position: relative; display: inline-flex; align-items: center; cursor: pointer; }
+.notif-badge { position: absolute; top: -6px; right: -8px; background: var(--danger); color: white; font-size: 11px; font-weight: 800; padding: 2px 6px; border-radius: 50%; }
+
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; }
+.modal-box { background: #ffffff; border-radius: 20px; padding: 36px 32px; width: 400px; position: relative; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); }
+.close-btn { position: absolute; right: 20px; top: 16px; font-size: 24px; cursor: pointer; color: #64748b; }
+.error-msg { color: var(--danger); font-size: 13px; font-weight: 600; text-align: center; margin-top: 10px; display: none; }
+/* Management Dashboard Modern Box Grid Layout */
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+/* Student Profile Clean Layout Fix */
+.profile-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.profile-input-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .profile-input-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.input-field-custom {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    font-size: 14px;
+    color: #0f172a;
+    transition: all 0.2s;
+}
+
+.input-field-custom:disabled {
+    background-color: #f1f5f9;
+    color: #64748b;
+    border-color: #e2e8f0;
+}
+
+.input-field-custom:focus {
+    border-color: #15803d;
+    background-color: #ffffff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.1);
+}
+
+/* Notification Badge Styling */
+.notif-badge {
+    background: #ef4444;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 4px;
+}
