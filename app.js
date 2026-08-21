@@ -1,5 +1,5 @@
-// Eclipse Tomcat Backend Base URL (Port 8085)
-const TOMCAT_URL = 'https://placement-backend-api.onrender.com/placementx-backend/api';
+// Render Live Tomcat Backend API URL
+const TOMCAT_URL = 'https://placement-backend-api.onrender.com/api';
 
 let currentUser = null;
 let profileEditing = false;
@@ -532,7 +532,51 @@ window.updateCandidateStatus = async function(appId, status) {
     renderRoleWorkspace('RECRUITER');
 };
 
-// 3. Management Super-Admin Control Center (Main Dashboard Icons & Hover Animation)
+// 3. Placement Officer (TPO) View
+async function renderTpoPortalView(container) {
+    const jobs = await getFromServlet('/jobs');
+    const applications = await getFromServlet('/applications');
+
+    container.innerHTML = `
+        <h2 class="dashboard-title">Placement Officer (TPO) Dashboard - ${currentUser.name}</h2>
+        
+        <div class="table-card" style="margin-top:24px;">
+            <h3>Active Placement Drives</h3>
+            <table class="data-table">
+                <thead><tr><th>COMPANY</th><th>ROLE</th><th>PACKAGE</th><th>VACANCIES</th></tr></thead>
+                <tbody>
+                    ${jobs.length > 0 ? jobs.map(j => `
+                        <tr>
+                            <td><strong>${j.company || 'Corporate Partner'}</strong></td>
+                            <td>${j.title}</td>
+                            <td><span class="badge badge-success">${j.salary}</span></td>
+                            <td>${j.vacancy}</td>
+                        </tr>
+                    `).join('') : '<tr><td colspan="4" style="text-align:center;">No drives active.</td></tr>'}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-card" style="margin-top:24px;">
+            <h3>All Student Drive Applications</h3>
+            <table class="data-table">
+                <thead><tr><th>STUDENT</th><th>DEPT</th><th>COMPANY</th><th>ROLE</th><th>STATUS</th></tr></thead>
+                <tbody>
+                    ${applications.length > 0 ? applications.map(a => `
+                        <tr>
+                            <td><strong>${a.student_name || a.studentName}</strong></td>
+                            <td>${a.dept || 'CSE'}</td>
+                            <td>${a.company}</td>
+                            <td>${a.role}</td>
+                            <td><span class="badge badge-success">${a.status}</span></td>
+                        </tr>
+                    `).join('') : '<tr><td colspan="5" style="text-align:center;">No applications submitted yet.</td></tr>'}
+                </tbody>
+            </table>
+        </div>`;
+}
+
+// 4. Management Super-Admin Control Center
 function renderManagementMainHub(container) {
     container.innerHTML = `
         <div style="max-width: 1200px; margin: 0 auto; padding: 10px 0;">
@@ -543,7 +587,7 @@ function renderManagementMainHub(container) {
 
             <div class="role-grid" style="display: grid; grid-template-columns: repeat(4, minmax(240px, 1fr)); gap: 24px;">
                 
-                <!-- Card 1: Issue Credentials (Crown Icon) -->
+                <!-- Card 1: Issue Credentials -->
                 <div class="mgmt-card" onclick="loadMgmtSubModule('CREDENTIALS')" style="background: #ffffff; border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); min-height: 250px; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 16px 30px rgba(27, 67, 50, 0.12)'; this.style.borderColor='#1b4332';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.04)'; this.style.borderColor='#e2e8f0';">
                     <div>
                         <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #1b4332;">
@@ -552,10 +596,10 @@ function renderManagementMainHub(container) {
                         <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0;">Issue / Create Credentials</h3>
                         <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin: 0;">Register and assign new role credentials directly into PostgreSQL database.</p>
                     </div>
-                    <button class="btn-portal" style="margin-top: 22px; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 13px; background: #1b4332; transition: background 0.2s;" onclick="event.stopPropagation(); loadMgmtSubModule('CREDENTIALS')">Open Module →</button>
+                    <button class="btn-portal" style="margin-top: 22px; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 13px; background: #1b4332;" onclick="event.stopPropagation(); loadMgmtSubModule('CREDENTIALS')">Open Module →</button>
                 </div>
 
-                <!-- Card 2: Student Portal Audits (Graduation Cap Icon) -->
+                <!-- Card 2: Student Audits -->
                 <div class="mgmt-card" onclick="loadMgmtSubModule('STUDENTS')" style="background: #ffffff; border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); min-height: 250px; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 16px 30px rgba(27, 67, 50, 0.12)'; this.style.borderColor='#1b4332';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.04)'; this.style.borderColor='#e2e8f0';">
                     <div>
                         <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #1b4332;">
@@ -564,10 +608,10 @@ function renderManagementMainHub(container) {
                         <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0;">Student Portal Audits</h3>
                         <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin: 0;">Track live applications, individual student selections, and rejections.</p>
                     </div>
-                    <button class="btn-portal" style="margin-top: 22px; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 13px; background: #1b4332; transition: background 0.2s;" onclick="event.stopPropagation(); loadMgmtSubModule('STUDENTS')">Open Module →</button>
+                    <button class="btn-portal" style="margin-top: 22px; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 13px; background: #1b4332;" onclick="event.stopPropagation(); loadMgmtSubModule('STUDENTS')">Open Module →</button>
                 </div>
 
-                <!-- Card 3: Recruiter Modules (Briefcase Icon) -->
+                <!-- Card 3: Recruiter Modules -->
                 <div class="mgmt-card" onclick="loadMgmtSubModule('RECRUITERS')" style="background: #ffffff; border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); min-height: 250px; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 16px 30px rgba(27, 67, 50, 0.12)'; this.style.borderColor='#1b4332';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.04)'; this.style.borderColor='#e2e8f0';">
                     <div>
                         <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #1b4332;">
@@ -576,10 +620,10 @@ function renderManagementMainHub(container) {
                         <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0;">Recruiter Modules</h3>
                         <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin: 0;">Analyze corporate job posting metrics and candidate evaluation throughput.</p>
                     </div>
-                    <button class="btn-portal" style="margin-top: 22px; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 13px; background: #1b4332; transition: background 0.2s;" onclick="event.stopPropagation(); loadMgmtSubModule('RECRUITERS')">Open Module →</button>
+                    <button class="btn-portal" style="margin-top: 22px; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 13px; background: #1b4332;" onclick="event.stopPropagation(); loadMgmtSubModule('RECRUITERS')">Open Module →</button>
                 </div>
 
-                <!-- Card 4: Placement Officers (Building Icon) -->
+                <!-- Card 4: Placement Officers -->
                 <div class="mgmt-card" onclick="loadMgmtSubModule('OFFICERS')" style="background: #ffffff; border-radius: 16px; padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); min-height: 250px; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 16px 30px rgba(27, 67, 50, 0.12)'; this.style.borderColor='#1b4332';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.04)'; this.style.borderColor='#e2e8f0';">
                     <div>
                         <div style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: #1b4332;">
@@ -588,7 +632,7 @@ function renderManagementMainHub(container) {
                         <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0;">Placement Officers</h3>
                         <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin: 0;">Monitor active TPO Admins and comprehensive campus drive operations.</p>
                     </div>
-                    <button class="btn-portal" style="margin-top: 22px; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 13px; background: #1b4332; transition: background 0.2s;" onclick="event.stopPropagation(); loadMgmtSubModule('OFFICERS')">Open Module →</button>
+                    <button class="btn-portal" style="margin-top: 22px; width: 100%; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 13px; background: #1b4332;" onclick="event.stopPropagation(); loadMgmtSubModule('OFFICERS')">Open Module →</button>
                 </div>
 
             </div>
@@ -604,7 +648,7 @@ window.goBackToMgmtHub = function() {
     }
 };
 
-// 4. Management Sub-Module Audits (Clean Separated Badges)
+// 5. Management Sub-Module Audits
 window.loadMgmtSubModule = async function(type) {
     const container = document.getElementById('workspaceContent');
     const userAccounts = await getFromServlet('/users');
