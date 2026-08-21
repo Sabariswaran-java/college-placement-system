@@ -1,33 +1,67 @@
-const API_BASE = "http://localhost:8080/placementx-backend/api";
+const API_BASE = "https://placement-backend-api.onrender.com/api";
 
 export const PlacementAPI = {
     async getCompanies() {
-        const res = await fetch(`${API_BASE}/companies`);
-        return res.json();
+        try {
+            const res = await fetch(`${API_BASE}/companies`);
+            if (!res.ok) return [];
+            return await res.json();
+        } catch (err) {
+            console.warn("API Warning (getCompanies):", err);
+            return [];
+        }
     },
     async saveCompany(data) {
-        const params = new URLSearchParams(data);
-        const res = await fetch(`${API_BASE}/companies`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params
-        });
-        return res.json();
+        try {
+            const params = new URLSearchParams(data);
+            const res = await fetch(`${API_BASE}/companies`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params
+            });
+            return await res.json();
+        } catch (err) {
+            console.warn("API Warning (saveCompany):", err);
+            return { status: "ERROR", message: "Failed to save company" };
+        }
     },
     async deleteCompany(id) {
-        const res = await fetch(`${API_BASE}/companies?id=${id}`, { method: 'DELETE' });
-        return res.json();
+        try {
+            const res = await fetch(`${API_BASE}/companies?id=${id}`, { method: 'DELETE' });
+            return await res.json();
+        } catch (err) {
+            console.warn("API Warning (deleteCompany):", err);
+            return { status: "ERROR", message: "Failed to delete company" };
+        }
     },
     async getStudents() {
-        const res = await fetch(`${API_BASE}/students`);
-        return res.json();
+        try {
+            const res = await fetch(`${API_BASE}/students`);
+            if (!res.ok) return [];
+            return await res.json();
+        } catch (err) {
+            console.warn("API Warning (getStudents):", err);
+            return [];
+        }
     },
     async getApplications() {
-        const res = await fetch(`${API_BASE}/applications`);
-        return res.json();
+        try {
+            const res = await fetch(`${API_BASE}/applications`);
+            if (!res.ok) return [];
+            return await res.json();
+        } catch (err) {
+            console.warn("API Warning (getApplications):", err);
+            return [];
+        }
     },
     async getRecords() {
-        const res = await fetch(`${API_BASE}/records`);
-        return res.json();
+        try {
+            const res = await fetch(`${API_BASE}/records`);
+            if (!res.ok) return [];
+            return await res.json();
+        } catch (err) {
+            console.warn("API Warning (getRecords):", err);
+            return [];
+        }
     }
 };
