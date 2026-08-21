@@ -1,6 +1,6 @@
-const API_BASE = "https://placement-backend-api.onrender.com/placementx-backend/api";
+const API_BASE = "https://placement-backend-api.onrender.com/api";
 
-export const PlacementAPI = {
+const PlacementAPI = {
     async getCompanies() {
         try {
             const res = await fetch(`${API_BASE}/companies`);
@@ -65,3 +65,5 @@ export const PlacementAPI = {
         }
     }
 };
+
+window.PlacementAPI = PlacementAPI;
