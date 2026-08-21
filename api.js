@@ -1,4 +1,4 @@
-const API_BASE = "https://placement-backend-api.onrender.com/api";
+const API_BASE = "https://placement-backend-api.onrender.com/placementx-backend/api";
 
 export const PlacementAPI = {
     async getCompanies() {
