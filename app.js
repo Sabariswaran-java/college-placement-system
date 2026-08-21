@@ -1,5 +1,5 @@
 // Render Live Tomcat Backend API URL
-const TOMCAT_URL = 'https://placement-backend-api.onrender.com/api';
+const TOMCAT_URL = 'https://placement-backend-api.onrender.com/placementx-backend';
 
 let currentUser = null;
 let profileEditing = false;
